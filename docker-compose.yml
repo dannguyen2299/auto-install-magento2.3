@@ -1,0 +1,77 @@
+version: '3'
+services:
+  php:
+    build:
+      context: ./../
+      dockerfile: ./docker/php/php.Dockerfile
+    restart: always
+    container_name: php-fpm-mpx
+    working_dir: /var/www/magento/ameyoko
+    volumes:
+      - ./../ameyoko:/var/www/magento/ameyoko
+    ports:
+      - "9009:9000"
+    env_file:
+      - .env
+  nginx:
+    image: nginx:1.18.0
+    restart: always
+    container_name: nginx_x-shopping-st
+    working_dir: /var/www/magento/ameyoko
+    volumes:
+      - ./../ameyoko:/var/www/magento/ameyoko
+      - ./nginx/magento.conf:/etc/nginx/conf.d/default.conf
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+  mysql:
+    image: mysql:5.7
+    restart: always
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - .my.cnf:/root/.my.cnf
+      - ./mysql/initdb:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    env_file:
+      - .env
+    ports:
+      - "3308:3306"
+  #  varnish:
+  #    image: varnish:6.3
+  #    restart: always
+  #    container_name: varnish_x-shopping-st
+  #    depends_on:
+  #      - nginx
+  #    volumes:
+  #      - ./varnish/default.vcl:/etc/varnish/default.vcl
+  #    ports:
+  #      - "80:80"
+  #    expose:
+  #      - "80"
+  phpmyadmins:
+    container_name: phpmyadmin_xshoppings
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8079:80"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6389:6379"
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0
+#    hostname: elasticsearch
+#    restart: always
+#    environment:
+#      - discovery.type=single-node
+#      - cluster.name=myesdb
+#    ports:
+#      - "9200:9200"
+volumes:
+  db_data:
