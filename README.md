@@ -15,3 +15,6 @@
     3, Paypal: dannguyen22993@gmail.com
 
 ![2024-02-23_14-36](https://github.com/dannguyen2299/auto-install-magento2.3/assets/71183646/4a60bdf6-e6f8-43f5-b985-04bc60e0e089)
+
+![smQrPalpal](https://github.com/dannguyen2299/auto-install-magento2.3/assets/71183646/8410d38e-eb30-4a84-9c07-a07ec5af76bb)
+
