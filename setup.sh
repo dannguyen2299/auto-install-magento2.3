@@ -17,7 +17,7 @@ docker compose exec -T php sed -i "s/<public-key>/$PUBLIC_KEY/g" ./auth.json
 docker compose exec -T php sed -i "s/<private-key>/$PRIVATE_KEY/g" ./auth.json
 
 # Updating packages
-#docker compose exec -T php composer update
+docker compose exec -T php composer update
 
 # Set permission in magento
 docker compose exec -T php find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
