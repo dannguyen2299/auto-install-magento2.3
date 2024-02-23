@@ -1,7 +1,7 @@
 FROM php:7.2-fpm
 
 #Copy src magento to docker
-#COPY ./ameyoko /var/www/magento/ameyoko
+COPY ./ameyoko /var/www/magento/ameyoko
 
 # Install required packages and dependencies.
 RUN apt-get update && apt-get install -y \
